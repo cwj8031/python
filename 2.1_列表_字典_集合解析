@@ -1,0 +1,64 @@
+如何在列表，字典，集合中根据条件筛选数据？
+
+	list:[]   列表  可以增（insert，append）减（pop）
+	tuple：() 元组 不可变  没有insert,append,pop，不能重新对元素赋值
+	dict:[]   字典，键值对  无序
+	set:{}    集合  无序  无重复
+
+	1、过滤掉列表[3,9,-1,10,20,-2..]中的负数
+
+	2、筛选字典{'LiLei':79,'Jim':88,'Lucy':92..｝中值高于90的项
+
+	3、筛选出集合｛77,89,32,20..｝中能被3整除的元素
+
+
+	通用作法：迭代
+	data=[1,2,-3,-4,6,0,9]
+	res=[]
+	for x in data:
+	    if x>=0:
+	        res.append(x)
+
+	print res
+
+	高级作法：
+	列表：列表解析
+	字典：字典解析
+	集合：集合解析
+
+	列表
+	第一种方式使用filter
+	from random import randint  #导入生成随机数
+
+	data=[randint(-10,10) for _ in xrange(10)]   #列表解析，生成10个元素（-10，10）
+
+	In [4]: data
+	Out[4]: [-3, -8, -3, 4, -8, -7, 2, -4, -3, 6]  
+
+	先用filter：filter？
+	filter(lambda x:x>=0 ,data)   #第二个参数是列表，先写上，第一个参数是匿名函数
+
+	In [6]: filter(lambda x:x>=0 ,data)
+	Out[6]: [4, 2, 6]
+
+	
+	第二种方式：使用列表解析  优于filter，优于迭代的方式
+	[x for x in data if x>=0]
+
+
+	字典解析：
+	d={x:randint(60,100)  for x in xrange(1,21)}   #生成一个随机字典，其中编号是1到20
+
+	{k:v for k,v  in d.iteritems() if v>90}  #同时迭代键和值用iteritems
+
+
+	集合解析：
+	In [16]: data
+	Out[16]: [-3, -8, -3, 4, -8, -7, 2, -4, -3, 6]
+
+	In [17]: s=set(data)   #把原来的data变成集合
+
+	In [18]: s
+	Out[18]: {-8, -7, -4, -3, 2, 4, 6}
+
+	{x for x in s  if x%3==0}    #集合解析，与列表解析相似
